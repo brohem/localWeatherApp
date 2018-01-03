@@ -150,14 +150,4 @@ var autumnImageUrl = './resources/img/autumn.jpg';
 
 $(document).ready(main);
 
-///////////// rememmber what the FUCK this is.... //////////////////////////////
 
-// $('#tweet-quote').click(function(){
-//
-//  $(this).attr("href", 'https://twitter.com/intent/tweet?text=' + quoteTxt + " -by " + quoteAut);
-//
-//
-// });
-//
-//
-// //<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
