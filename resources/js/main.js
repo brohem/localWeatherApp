@@ -4,16 +4,17 @@ var lon;
 var lat;
 var api = 'https://fcc-weather-api.glitch.me/api/current?'
 
-var date = new Date();
-var month = date.getMonth();
+var date = new Date(); //set the current date
+var month = date.getMonth(); // set the current month
 
+// collection of background images for the switch below
 var winterImageUrl = './resources/img/winter.jpg';
 var springImageUrl = './resources/img/spring.jpg';
 var summerImageUrl = './resources/img/summer.jpg';
 var autumnImageUrl = './resources/img/autumn.jpg';
 
 
-
+// swith the background image according to the current month
   switch(month){
 
     case 11:
@@ -64,13 +65,7 @@ var autumnImageUrl = './resources/img/autumn.jpg';
       $('.backgroundImage').css( 'background-image', 'url('+ autumnImageUrl +')' );
       break;
 
-
-
-  }
-
-
-
-
+  }// END switch
 
   // get user location and execute weather display function
   if (navigator.geolocation) {
@@ -91,8 +86,9 @@ var autumnImageUrl = './resources/img/autumn.jpg';
   {
     var cTemp = celsius;
     var cToFahr = cTemp * 9 / 5 + 32;
-    var message = cTemp+'\xB0C is ' + cToFahr + ' \xB0F.';
-      console.log(message);
+    var message = cTemp+'\xB0C is ' + cToFahr + ' \xB0F.';//for testing only
+      console.log(message);//for testing only
+
       return cToFahr;
   }
 
@@ -100,22 +96,24 @@ var autumnImageUrl = './resources/img/autumn.jpg';
   {
     var fTemp = fahrenheit;
     var fToCel = (fTemp - 32) * 5 / 9;
-    var message = fTemp+'\xB0F is ' + fToCel + '\xB0C.';
-      console.log(message);
+
+    var message = fTemp+'\xB0F is ' + fToCel + '\xB0C.';//for testing only
+      console.log(message);//for testing only
+
       return fToCel;
   }
   //END convert celsius to fahrenheit and vise versa functions //
 
 
 
-
+  // MAIN function - displays weather info from the API
   function displayWeather(lat,lon){
 
     var currentUrl = api+lat+'&'+lon;
 
     $.ajax({
        url:  currentUrl,
-      // url: 'https://freegeoip.net/json/' // alt url
+      // url: 'https://freegeoip.net/json/' // alternative url API (NOT USED - future growth)
        datatype: 'jsonp',
 
        success: function(data) {
@@ -123,10 +121,13 @@ var autumnImageUrl = './resources/img/autumn.jpg';
          console.log(data);
          var celsiusTemprature = data.main.temp
          var fahrenheitTemprature = cToF(celsiusTemprature);
+         var $weatherDescription = data.weather[0].description;
 
          $('#location').append(data.name + '<br>' + data.sys.country);
-         $('#weatherIcon').append('<img src='+ data.weather[0].icon + ' alt=' + data.weather[0].description+'>' );
+         $('#weatherIcon').append('<img src='+ data.weather[0].icon + ' alt=' +"'" +$weatherDescription+"'" +'>' );
+
          $('#temprature').append(data.main.temp+ '\xB0C ');
+         $('#weatherDescription').append($weatherDescription.toUpperCase());
 
          //  show Farenheit function upon click showFarenheit button
          $('#showFarenheit').click(function(){
@@ -149,5 +150,3 @@ var autumnImageUrl = './resources/img/autumn.jpg';
 
 
 $(document).ready(main);
-
-
